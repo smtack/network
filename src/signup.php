@@ -2,9 +2,9 @@
 require_once "../public/init.php";
 
 if(isset($_POST['signup'])) {
-  $name = $_POST['name'];
-  $email = $_POST['email'];
-  $password = $_POST['password'];
+  $name = htmlentities($_POST['name']);
+  $email = htmlentities($_POST['email']);
+  $password = htmlentities($_POST['password']);
   $hashed_password = password_hash($_POST['password'], PASSWORD_BCRYPT);
 
   $query = "INSERT INTO users (name, email, password) VALUES (:name, :email, :password)";

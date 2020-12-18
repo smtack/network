@@ -3,13 +3,21 @@
 <div class="header">
   <h1><a href="<?php echo BASE_URL; ?>/src/home.php">Network</a></h1>
 
-  <span id="search">
-    <form action="<?php echo BASE_URL; ?>/src/search.php" method="GET">
-      <input type="text" name="search" value="<?php echo $keywords; ?>">
-    </form>
-  </span>
+  <div class="opts">
+    <img class="search-toggle" src="<?php echo BASE_URL; ?>/img/search.png">
+    <img class="settings-toggle" src="<?php echo BASE_URL; ?>/img/settings.png">
 
-  <a href="logout.php">Log out</a>
+    <div class="search">
+      <form action="<?php echo BASE_URL; ?>/src/search.php" method="GET">
+        <input type="text" name="search" value="<?php echo $keywords; ?>">
+      </form>
+    </div>
+
+    <div class="settings">
+      <ul>
+        <li><a href="<?php echo BASE_URL; ?>/src/logout.php">Log out</a></li>
+      </ul>
+  </div>
 </div>
 
 <div class="content">

@@ -5,9 +5,7 @@
 }
 
 .logo {
-  width: 50%;
-  height: 50vh;
-  float: left;
+  margin: 50px 0;
 }
 
 .logo h1 {
@@ -18,14 +16,12 @@
 }
 
 .form {
-  width: 50%;
-  height: 75vh;
-  margin-left: 50%;
+  margin: 50px 0;
 }
 
 .form form {
-  width: 70%;
-  margin: 200px auto;
+  width: 500px;
+  margin: 150px auto;
 }
 
 .form-group {
@@ -60,52 +56,76 @@
 }
 
 .header {
-  height: 100px;
-  background-color: #f03434;
-  color: #ffffff;
+  height: 75px;
+  border-bottom: 1px solid #d3d3d3;
 }
 
 .header h1 {
-  font-size: 36px;
-  padding: 0px 0 0 30px;
-  margin-top: -20px;
-  float: left;
+  font-size: 24px;
+  padding: 25px 0 0 25px;
+  position: relative;
 }
 
-#search {
+.header h1 a {
+  color: #f03434;
+  text-decoration: none;
+}
+
+.opts {
+  font-size: 24px;
+  padding: 25px 0 0 25px;
+  float: right;
+  position: fixed;
+  right: 25px;
+  top: 0;
+}
+
+.opts img {
+  margin: 0 10px;
+}
+
+.opts img:hover {
+  cursor: pointer;
+}
+
+.search {
   position: absolute;
-  top: 35px;
-  left: 45%;
+  top: 20px;
+  right: 100px;
 }
 
-#search input {
+.search input {
   width: 300px;
   height: 35px;
-  border: 1px solid #f03434;
+  border: 1px solid #d3d3d3;
   border-radius: 5px;
   box-sizing: border-box;
   padding-left: 5px;
 }
 
-.header a {
-  color: #ffffff;
-  float: right;
-  margin: 35px 35px 0 0;
-  padding: 10px;
-  background-color: #f03434;
+.settings {
+  border: 1px solid #d3d3d3;
   border-radius: 5px;
+}
+
+.settings ul {
+  list-style-type: none;
+  font-size: 16px;
+}
+
+.settings ul li a {
+  color: #000000;
   text-decoration: none;
 }
 
-.header a:hover {
-  color: #f03434;
-  background-color: #ffffff;
+.content {
+  width: 80%;
+  margin: 50px auto;
 }
 
 .create {
   width: 50%;
-  float: left;
-  box-sizing: border-box;
+  display: inline-block;
 }
 
 .create form {
@@ -130,13 +150,15 @@
 
 .posts {
   width: 50%;
-  margin-left: 50%;
+  float: right;
 }
 
 .post {
   width: 90%;
   margin: 25px auto;
-  border-bottom: 1px solid #d3d3d3;
+  border: 1px solid #d3d3d3;
+  border-radius: 5px;
+  padding: 10px;
 }
 
 .post #datetime {
@@ -145,14 +167,14 @@
 }
 
 .post #options a {
-  margin: 0 10px 10px 0;
+  margin: 0 20px 20px 0;
   color : #000000;
   text-decoration: none;
 }
 
 .update-form {
   width: 750px;
-  margin: 0 auto;
+  margin: 25px auto;
 }
 
 .update-form textarea {
@@ -181,8 +203,9 @@
 
 .footer {
   clear: both;
-  height: 20vh;
   border-top: 1px solid #d3d3d3;
+  position: relative;
+  top: 500px;
 }
 
 .footer p {
@@ -193,20 +216,26 @@
 }
 
 @media(max-width: 750px) {
-  .logo {
-    width: 100%;
-    height: 0px;
-    float: none;
+  .form {
+    width: 80%;
+    margin: 0 auto;
   }
 
-  .form {
+  .form form {
     width: 100%;
-    margin: 0 auto;
+  }
+
+  .content {
+    width: 100%;
   }
 
   .create {
     width: 100%;
-    float: none;
+  }
+
+  .create form {
+    width: 95%;
+    margin: 0 auto;
   }
 
   .posts {

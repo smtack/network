@@ -3,7 +3,7 @@ require_once "../public/init.php";
 
 if(isset($_POST['post'])) {
   $name = $_SESSION['name'];
-  $content = $_POST['content'];
+  $content = htmlentities($_POST['content']);
   
   $query = "INSERT INTO posts (name, content) VALUES (:name, :content)";
   $stmt = $db->prepare($query);

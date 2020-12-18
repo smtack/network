@@ -14,7 +14,7 @@ $post_data = $stmt->fetchAll();
 foreach($post_data as $post);
 
 if(isset($_POST['update'])) {
-  $content = $_POST['content'];
+  $content = htmlentities($_POST['content']);
   
   $query = "UPDATE posts SET content = :content WHERE id = :id";
   $stmt = $db->prepare($query);

@@ -21,21 +21,11 @@
 </div>
 
 <div class="content">
-  <div class="create">
-    <h2><?php echo $user_name; ?></h2>
-  </div>
-
-  <div class="posts">
-    <?php
-      foreach($posts as $post) {
-        echo("
-          <div class='post'>
-            <p id='content'>{$post['content']}</p>
-            <p id='datetime'>{$post['datetime']}</p>
-          </div>
-        ");
-      }
-    ?>
+  <div class="update-form">
+    <div class="post">
+      <p id='content'><?php echo $post_data['content']; ?></p>
+      <p id='datetime'><?php echo $post_data['datetime']; ?></p>
+    </div>
   </div>
 </div>
 
