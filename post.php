@@ -1,5 +1,9 @@
 <?php
-require_once "../public/init.php";
+require_once "public/init.php";
+
+if(!isset($_SESSION['loggedin'])) {
+  header("Location: " . BASE_URL . "/index");
+}
 
 $page_title = "Network";
 

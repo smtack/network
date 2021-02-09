@@ -20,7 +20,7 @@
         <input type="submit" name="signup" value="Sign Up">
       </div>
       <div class="form-group">
-        <a href="<?php echo BASE_URL; ?>/src/login.php">Already have an account? Log in</a>
+        <a href="<?php echo BASE_URL; ?>/login">Already have an account? Log in</a>
       </div>
     </form>
   </div>

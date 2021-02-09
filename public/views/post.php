@@ -1,30 +1,29 @@
 <?php require_once VIEW_ROOT . "/includes/header.php"; ?>
 
-<div class="header">
-  <h1><a href="<?php echo BASE_URL; ?>/src/home.php">Network</a></h1>
-
-  <div class="opts">
-    <img class="search-toggle" src="<?php echo BASE_URL; ?>/img/search.png">
-    <img class="settings-toggle" src="<?php echo BASE_URL; ?>/img/settings.png">
-
-    <div class="search">
-      <form action="<?php echo BASE_URL; ?>/src/search.php" method="GET">
-        <input type="text" name="search" placeholder="Search">
-      </form>
-    </div>
-
-    <div class="settings">
-      <ul>
-        <li><a href="<?php echo BASE_URL; ?>/src/logout.php">Log out</a></li>
-      </ul>
-  </div>
-</div>
+<?php require_once VIEW_ROOT . "/includes/navbar.php"; ?>
 
 <div class="content">
   <div class="update-form">
     <div class="post">
-      <p id='content'><?php echo $post_data['content']; ?></p>
-      <p id='datetime'><?php echo $post_data['datetime']; ?></p>
+      <div class="name">
+        <span><?php echo $post_data['name']; ?>
+      </div>
+      <div class="image">
+        <img src="<?php echo BASE_URL; ?>/src/uploads/<?php echo $post_data['image']; ?>" alt="<?php echo $post_data['image']; ?>">
+      </div>
+      <div class="text">
+        <p><?php echo $post_data['content']; ?></p>
+      </div>
+      <div class="datetime">
+        <span><?php echo $post_data['datetime']; ?></span>
+      </div>
+      <div class="options">
+        <span>
+          <a href='update?id=<?php echo $post_data['id']; ?>'>Update</a>
+          <a href='src/delete?id=<?php echo $post_data['id']; ?>'>Delete</a>
+          <a href='post?id=<?php echo $post_data['id']; ?>'>View Post</a>
+        </span>
+      </div>
     </div>
   </div>
 </div>

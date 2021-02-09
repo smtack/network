@@ -1,8 +1,6 @@
 <?php
 require_once "../public/init.php";
 
-$page_title = "Network - Login";
-
 if(isset($_POST['login'])) {
   $email = $_POST['email'];
   $password = $_POST['password'];
@@ -21,12 +19,10 @@ if(isset($_POST['login'])) {
       $_SESSION['name'] = $row['name'];
       $_SESSION['loggedin'] = true;
 
-      header("Location: home.php");
+      header("Location: " . BASE_URL . "/home");
     } else {
       echo "Unable to log in";
     }
   }
 }
-
-require VIEW_ROOT . "/login.php";
 ?>

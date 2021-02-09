@@ -19,6 +19,6 @@ if(isset($_POST['signup'])) {
   $_SESSION['name'] = $name;
   $_SESSION['loggedin'] = true;
 
-  header("Location: " . BASE_URL . "/src/home.php");
+  header("Location: " . BASE_URL . "/home");
 }
 ?>

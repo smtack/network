@@ -75,7 +75,7 @@
   font-size: 24px;
   padding: 25px 0 0 25px;
   float: right;
-  position: fixed;
+  position: absolute;
   right: 25px;
   top: 0;
 }
@@ -104,6 +104,9 @@
 }
 
 .settings {
+  min-height: 200px;
+  padding: 10px;
+  background-color: #ffffff;
   border: 1px solid #d3d3d3;
   border-radius: 5px;
 }
@@ -158,23 +161,40 @@
   margin: 25px auto;
   border: 1px solid #d3d3d3;
   border-radius: 5px;
+}
+
+.name {
+  border-bottom: 1px solid #d3d3d3;
   padding: 10px;
 }
 
-.post #datetime {
-  margin: 10px 0;
-  color: #818181;
+.image img {
+  width: 100%;
 }
 
-.post #options a {
-  margin: 0 20px 20px 0;
+.content p,
+.options {
+  padding: 10px;
+}
+
+.datetime {
+  color: #818181;
+  padding: 10px;
+}
+
+.options a {
   color : #000000;
   text-decoration: none;
+  margin-right: 10px;
 }
 
 .update-form {
-  width: 750px;
-  margin: 25px auto;
+  width: 650px;
+  margin: 50px auto;
+}
+
+.update-form img {
+  width: 100%;
 }
 
 .update-form textarea {
@@ -203,9 +223,8 @@
 
 .footer {
   clear: both;
+  height: 75px;
   border-top: 1px solid #d3d3d3;
-  position: relative;
-  top: 500px;
 }
 
 .footer p {
@@ -215,7 +234,7 @@
   font-size: 12px;
 }
 
-@media(max-width: 750px) {
+@media(max-width: 800px) {
   .form {
     width: 80%;
     margin: 0 auto;
