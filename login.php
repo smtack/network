@@ -8,7 +8,9 @@ if(isset($_SESSION['user'])) {
 }
 
 if(isset($_POST['login'])) {
-  if(empty($_POST['user_username']) || empty($_POST['user_password'])) {
+  if(!check($_POST['token'], 'token')) {
+    $error = "Token Invalid";
+  } else if(empty($_POST['user_username']) || empty($_POST['user_password'])) {
     $error = "Enter your Username and Password";
   } else {
     $data = [

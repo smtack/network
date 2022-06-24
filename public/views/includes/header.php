@@ -19,19 +19,22 @@
     <div class="header">
       <h1 id="logo"><a href="/">network</a></h1>
 
-      <form action="/search.php" method="GET" class="search">
-        <input type="text" name="s" placeholder="Search" value="<?=isset($keywords) ? str_replace('%', '', $keywords) : ''?>">
-      </form>
-
       <?php if(loggedIn()): ?>
         <ul id="options">
-          <li><img id="toggle-search" src="<?=BASE_URL?>/public/img/Search.svg"></li>
-          <li><img id="toggle-menu" src="/uploads/profile-pictures/<?=$user_info->user_profile_picture?>"></li>
+          <li><img id="toggle-search" src="<?=BASE_URL?>/public/img/Search.svg" alt="Search"></li>
+          <li><a href="/explore"><img src="<?=BASE_URL?>/public/img/Explore.svg" alt="Explore"></a></li>
+          <li><img id="toggle-menu" src="/uploads/profile-pictures/<?=escape($user_info->user_profile_picture)?>" alt="Toggle Menu"></li>
         </ul>
+
+        <div class="search">
+          <form action="/search" method="POST">
+            <input type="text" name="s" placeholder="Search" value="<?=isset($keywords) ? str_replace('%', '', $keywords) : ''?>">
+          </form>
+        </div>
 
         <div class="menu">
           <ul>
-            <a href="/profile?u=<?=$user_info->user_username?>"><li>Your Profile</li></a>
+            <a href="/profile/<?=escape($user_info->user_username)?>"><li>Your Profile</li></a>
             <a href="/update"><li>Update Profile</li></a>
             <a href="/logout"><li>Log out</li></a>
           </ul>

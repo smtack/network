@@ -9,12 +9,12 @@ if(!loggedIn()) {
   $user_info = $user->getUser($_SESSION['user']);
 }
 
-if(!isset($_GET['u'])) {
+if(!isset($_GET['query'])) {
   redirect('home');
-} else if($_GET['u'] === $user_info->user_id) {
+} else if($_GET['query'] === $user_info->user_id) {
   redirect('home');
 } else {
-  $followed_user = $user->getUser(escape($_GET['u']));
+  $followed_user = $user->getUser(escape($_GET['query']));
 
   $data = [
     'follow_user' => $user_info->user_id,
@@ -22,7 +22,7 @@ if(!isset($_GET['u'])) {
   ];
 
   if($user->follow($data)) {
-    redirect('profile?u=' . $followed_user->user_username);
+    redirect('profile/' . $followed_user->user_username);
   } else {
     redirect('home');
   }

@@ -17,6 +17,7 @@
         <input type="password" name="user_password" placeholder="Password">
       </div>
       <div class="form-group">
+        <input type="hidden" name="token" value="<?=generate('token')?>">
         <input type="submit" name="login" value="Log In">
       </div>
       <div class="form-group">

@@ -8,7 +8,9 @@ if(isset($_SESSION['user'])) {
 }
 
 if(isset($_POST['signup'])) {
-  if(empty($_POST['user_name']) || empty($_POST['user_username']) || empty($_POST['user_email']) || empty($_POST['user_password']) || empty($_POST['confirm_password'])) {
+  if(!check($_POST['token'], 'token')) {
+    $error = "Token Invalid";
+  } else if(empty($_POST['user_name']) || empty($_POST['user_username']) || empty($_POST['user_email']) || empty($_POST['user_password']) || empty($_POST['confirm_password'])) {
     $error = "Fill in all fields";
   } else if($db->exists('users', array('user_username' => $_POST['user_username']))) {
     $error = "This username already exists";

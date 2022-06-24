@@ -4,17 +4,29 @@
   <div class="form">
     <h3>Edit Post</h3>
 
-    <form action="<?php $self; ?>" method="POST">
+    <form enctype="multipart/form-data" action="<?php $self; ?>" method="POST">
       <div class="form-group">
         <?php if(isset($error)): ?>
           <p class="error"><?=$error?></p>
         <?php endif; ?>
       </div>
       <div class="form-group">
-        <textarea name="post_content"><?=$post_data->post_content?></textarea>
+        <textarea class="post-content" id="textarea" name="post_content"><?=escape($post_data->post_content)?></textarea>
+        <p id="counter-text"><span id="counter"></span>/1000</p>
+      </div>
+      <?php if($post_data->post_image): ?>
+        <div class="form-group">
+          <img src="<?=BASE_URL?>/uploads/post-images/<?=escape($post_data->post_image)?>">
+        </div>
+      <?php endif; ?>
+      <div class="form-group">
+        <label for="post_image"><img id="upload-image" src="<?=BASE_URL?>/public/img/Image.svg" alt="Upload Image"></label>
+        <input id="post_image" type="file" name="post_image">
+        <p id="file-name"></p>
       </div>
       <div class="form-group">
-        <input type="submit" name="edit" value="Edit">
+        <input type="hidden" name="token" value="<?=generate('token')?>">
+        <input id="submit" type="submit" name="edit" value="Edit">
       </div>
     </form>
   </div>

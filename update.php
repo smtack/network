@@ -10,7 +10,9 @@ if(isset($_SESSION['user'])) {
 }
 
 if(isset($_POST['update'])) {
-  if(empty($_POST['user_name']) || empty($_POST['user_username']) || empty($_POST['user_email'])) {
+  if(!check($_POST['token'], 'token')) {
+    $error = "Token Invalid";
+  } else if(empty($_POST['user_name']) || empty($_POST['user_username']) || empty($_POST['user_email'])) {
     $error = "Fill in all fields";
   } else if($db->exists('users', array('user_username' => $_POST['user_username'])) && $_POST['user_username'] !== $user_info->user_username) {
     $error = "This username already exists";
@@ -34,7 +36,9 @@ if(isset($_POST['update'])) {
 }
 
 if(isset($_POST['upload_profile_picture'])) {
-  if(empty($_FILES['user_profile_picture']['name'])) {
+  if(!check($_POST['picture_token'], 'picture_token')) {
+    $picture_error = "Token Invalid";
+  } else if(empty($_FILES['user_profile_picture']['name'])) {
     $picture_error = "Select an image to upload";
   } else {
     $target_dir = "uploads/profile-pictures/";
@@ -60,7 +64,9 @@ if(isset($_POST['upload_profile_picture'])) {
 }
 
 if(isset($_POST['update_password'])) {
-  if(empty($_POST['user_password']) || empty($_POST['new_password']) || empty($_POST['confirm_password'])) {
+  if(!check($_POST['password_token'], 'password_token')) {
+    $password_error = "Token Invalid";
+  } else if(empty($_POST['user_password']) || empty($_POST['new_password']) || empty($_POST['confirm_password'])) {
     $password_error = "Fill in all fields";
   } else if(!password_verify($_POST['user_password'], $user_info->user_password)) {
     $password_error = "Enter your current password correctly";
@@ -78,7 +84,9 @@ if(isset($_POST['update_password'])) {
 }
 
 if(isset($_POST['delete_profile'])) {
-  if(empty($_POST['user_password'])) {
+  if(!check($_POST['delete_token'], 'delete_token')) {
+    $delete_error = "Token Invalid";
+  } else if(empty($_POST['user_password'])) {
     $delete_error = "Enter your password";
   } else if(!password_verify($_POST['user_password'], $user_info->user_password)) {
     $delete_error = "Enter your password correctly";

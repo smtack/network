@@ -6,8 +6,12 @@ spl_autoload_register(function($class) {
   include_once "classes/" . $class . ".php";
 });
 
+// set_error_handler('errorHandler');
+ini_set("display_errors", "on");
+error_reporting(E_ALL);
+
 session_start();
 
 $db = new Database();
 
-$self = $_SERVER['PHP_SELF'];
+$self = escape($_SERVER['PHP_SELF']);

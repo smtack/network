@@ -7,7 +7,7 @@ if(loggedIn()) {
   $user_info = $user->getUser($_SESSION['user']);
 }
 
-$keywords = escape($_GET['s']);
+$keywords = isset($_POST['s']) ? escape($_POST['s']) : '';
 $keywords = "%{$keywords}%";;
 
 $results = $user->search($keywords);

@@ -106,4 +106,27 @@ class User {
 
     return false;
   }
+
+  public function getUsersFollows($user) {
+    $sql = "SELECT
+              *
+            FROM
+              users
+            LEFT JOIN
+              follows
+            ON
+              users.user_id = follows.follow_follow
+            WHERE
+              follows.follow_user = ?";
+
+    $stmt = $this->db->pdo->prepare($sql);
+
+    $stmt->bindParam(1, $user);
+    
+    if($stmt->execute()) {
+      return $stmt->fetchAll();
+    }
+
+    return false;
+  }
 }

@@ -26,6 +26,7 @@
         <input type="password" name="confirm_password" placeholder="Confirm Password">
       </div>
       <div class="form-group">
+        <input type="hidden" name="token" value="<?=generate('token')?>">
         <input type="submit" name="signup" value="Sign Up">
       </div>
       <div class="form-group">

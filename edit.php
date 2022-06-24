@@ -8,26 +8,53 @@ if(!loggedIn()) {
   redirect('index');
 } else if(!$user_info = $user->getUser($_SESSION['user'])) {
   redirect('index');
-} else if(!isset($_GET['p'])) {
+} else if(!isset($_GET['query'])) {
   redirect(404);
-} else if(!$post_data = $post->getPost(escape($_GET['p']))) {
+} else if(!$post_data = $post->getPost(escape($_GET['query']))) {
   redirect(404);
 } else if($post_data->post_by !== $user_info->user_id) {
   redirect('home');
 }
 
 if(isset($_POST['edit'])) {
-  if(empty($_POST['post_content'])) {
+  if(!check($_POST['token'], 'token')) {
+    $error = "Token Invalid";
+  } else if(empty($_POST['post_content'])) {
     $error = "Enter some text";
   } else {
-    $data = [
-      'post_content' => escape($_POST['post_content'])
-    ];
+    if(!empty($_FILES['post_image']['name'])) {
+      $target_dir = "uploads/post-images/";
+      $file_name = basename($_FILES['post_image']['name']);
+      $path = $target_dir . $file_name;
+      $file_type = pathinfo($path, PATHINFO_EXTENSION);
+      $allow_types = array('jpg', 'png', 'gif');
 
-    if($post->editPost($data, $post_data->post_id)) {
-      redirect('post?p=' . $post_data->post_id);
+      if(!in_array($file_type, $allow_types)) {
+        $error = "This fiule type is not supported";
+      } else if(!move_uploaded_file($_FILES['post_image']['tmp_name'], $path)) {
+        $error = "Unable to upload image. Try again later.";
+      } else {
+        $data = [
+          'post_content' => escape($_POST['post_content']),
+          'post_image' => escape($file_name)
+        ];
+
+        if($post->editPost($data, $post_data->post_id)) {
+          redirect('post/' . $post_data->post_id);
+        } else {
+          $error = "Unable to edit post. Try again later.";
+        }
+      }
     } else {
-      $error = "Unable to edit post. Try again later.";
+      $data = [
+        'post_content' => escape($_POST['post_content'])
+      ];
+  
+      if($post->editPost($data, $post_data->post_id)) {
+        redirect('post/' . $post_data->post_id);
+      } else {
+        $error = "Unable to edit post. Try again later.";
+      }
     }
   }
 }

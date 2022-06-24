@@ -1,28 +1,12 @@
 <?php require_once VIEW_ROOT . '/includes/header.php'; ?>
 
 <div class="content">
-  <div class="sidebar">
-    <div class="info">
-      <img src="<?=BASE_URL?>/uploads/profile-pictures/<?=escape($user_info->user_profile_picture)?>">
-      <h2><?=escape($user_info->user_name)?></h2>
-      <h5>@<?=escape($user_info->user_username)?></h5>
+  <div class="posts page">
+    <div class="heading">
+      <h2>Explore</h2>
     </div>
-    <div class="info">
-      <h3>Your Follows</h3>
-
-      <?php if(!$follows): ?>
-        <p>You aren't following anyone yet</p>
-      <?php else: ?>
-        <?php foreach($follows as $follow): ?>
-          <a href="/profile/<?=escape($follow->user_username)?>"><img class="follow-img" src="<?=BASE_URL?>/uploads/profile-pictures/<?=escape($follow->user_profile_picture)?>"></a>
-        <?php endforeach; ?>
-      <?php endif; ?>
-    </div>
-  </div>
-  
-  <div class="posts">
     <?php if(!$posts): ?>
-      <h3 class="message">Welcome to network. Make a post or follow a user.</h3>
+      <h3 class="message">Nobody has posted anything yet...<h3>
     <?php else: ?>
       <?php foreach($posts as $post): ?>
         <div class="post" onclick="location.href='/post/<?=escape($post->post_id)?>'">
@@ -39,7 +23,7 @@
             <img src="<?=BASE_URL?>/uploads/post-images/<?=escape($post->post_image)?>">
           <?php endif; ?>
 
-          <?php if($post->post_by == $user_info->user_id): ?>
+          <?php if(loggedIn() && $post->post_by == $user_info->user_id): ?>
             <span class="options">
               <a href="/edit/<?=escape($post->post_id)?>">Edit</a>
               <a href="/delete/<?=escape($post->post_id)?>">Delete</a>

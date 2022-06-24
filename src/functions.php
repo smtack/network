@@ -42,3 +42,33 @@ function findValue($array, $key, $value) {
 
   return false;
 }
+
+// Custom error page
+function errorHandler() {
+  if(error_reporting()) {
+    include_once VIEW_ROOT . '/errors/error.php';
+
+    die();
+  }
+}
+
+// Create random bytes
+function random($number) {
+  return bin2hex(random_bytes($number));
+}
+
+// Generate token
+function generate($token) {
+  return $_SESSION[$token] = random(64);
+}
+
+// Check token
+function check($token, $name) {
+  if(isset($_SESSION[$name]) && hash_equals($_SESSION[$name], $token)) {
+    unset($_SESSION[$name]);
+
+    return true;
+  }
+
+  return false;
+}

@@ -10,6 +10,8 @@ if(!isset($_SESSION['user'])) {
   $user_info = $user->getUser($_SESSION['user']);
 
   $posts = $post->getHomepagePosts($user_info->user_id);
+
+  $follows = $user->getUsersFollows($user_info->user_id);
 }
 
 require VIEW_ROOT . '/home.php';

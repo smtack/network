@@ -11,10 +11,12 @@
         <?php endif; ?>
       </div>
       <div class="form-group">
-        <textarea name="comment_text"><?=$comment_data->comment_text?></textarea>
+        <textarea class="comment-text" name="comment_text"><?=escape($comment_data->comment_text)?></textarea>
+        <p id="counter-text"><span id="counter"></span>/1000</p>
       </div>
       <div class="form-group">
-        <input type="submit" name="edit_comment" value="Edit Comment">
+        <input type="hidden" name="token" value="<?=generate('token')?>">
+        <input id="submit" type="submit" name="edit_comment" value="Edit Comment">
       </div>
     </form>
   </div>

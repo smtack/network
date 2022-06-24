@@ -8,10 +8,10 @@ if(loggedIn()) {
   $user_info = $user->getUser($_SESSION['user']);
 }
 
-if(!isset($_GET['u']) || empty($_GET['u'])) {
+if(!isset($_GET['query']) || empty($_GET['query'])) {
   redirect('index');
 } else {
-  if(!$profile_info = $user->getUser(escape($_GET['u']))) {
+  if(!$profile_info = $user->getUser(escape($_GET['query']))) {
     redirect(404);
   } else {
     $posts = $post->getProfilePosts($profile_info->user_id);
@@ -20,19 +20,48 @@ if(!isset($_GET['u']) || empty($_GET['u'])) {
 }
 
 if(isset($_POST['submit'])) {
-  if(empty($_POST['post_content'])) {
+  if(!check($_POST['token'], 'token')) {
+    $error = "Token Invalid";
+  } else if(empty($_POST['post_content'])) {
     $error = "Enter some text";
   } else {
-    $data = [
-      'post_content' => escape($_POST['post_content']),
-      'post_profile' => $profile_info->user_id,
-      'post_by' => $user_info->user_id
-    ];
+    if(!empty($_FILES['post_image']['name'])) {
+      $target_dir = "uploads/post-images/";
+      $file_name = basename($_FILES['post_image']['name']);
+      $path = $target_dir . $file_name;
+      $file_type = pathinfo($path, PATHINFO_EXTENSION);
+      $allow_types = array('jpg', 'png', 'gif');
 
-    if($post->createPost($data)) {
-      redirect('profile?u=' . $profile_info->user_username);
+      if(!in_array($file_type, $allow_types)) {
+        $error = "This file type is not supported";
+      } else if(!move_uploaded_file($_FILES['post_image']['tmp_name'], $path)) {
+        $error = "Unable to upload image. Try again later.";
+      } else {
+        $data = [
+          'post_content' => escape($_POST['post_content']),
+          'post_image' => escape($file_name),
+          'post_profile' => $profile_info->user_id,
+          'post_by' => $user_info->user_id
+        ];
+    
+        if($post->createPost($data)) {
+          redirect('profile/' . $profile_info->user_username);
+        } else {
+          $error = "Unable to make post";
+        }
+      }
     } else {
-      $error = "Unable to make post";
+      $data = [
+        'post_content' => escape($_POST['post_content']),
+        'post_profile' => $profile_info->user_id,
+        'post_by' => $user_info->user_id
+      ];
+  
+      if($post->createPost($data)) {
+        redirect('profile/' . $profile_info->user_username);
+      } else {
+        $error = "Unable to make post";
+      }
     }
   }
 }
