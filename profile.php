@@ -14,7 +14,16 @@ if(!isset($_GET['query']) || empty($_GET['query'])) {
   if(!$profile_info = $user->getUser(escape($_GET['query']))) {
     redirect(404);
   } else {
-    $posts = $post->getProfilePosts($profile_info->user_id);
+    $page = isset($_GET['p']) ? (int)$_GET['p'] : 1;
+
+    $start = ($page > 1) ? ($page * 10) - 10 : 0;
+
+    $posts = $post->getProfilePosts($profile_info->user_id, $start);
+
+    $total = $db->pdo->query("SELECT FOUND_ROWS() as total")->fetch()->total;
+
+    $pages = ceil($total / 10);
+
     $follows_data = $user->getFollowsData($profile_info->user_id);
   }
 }

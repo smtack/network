@@ -68,8 +68,25 @@ class User {
     return false;
   }
 
-  public function search($keywords) {
-    $sql = "SELECT * FROM users WHERE user_name LIKE ? OR user_username LIKE ? ORDER BY user_joined DESC";
+  public function search($keywords, $start) {
+    $sql = "SELECT
+              SQL_CALC_FOUND_ROWS
+              *
+            FROM
+              users
+            WHERE
+              user_name
+            LIKE
+              ?
+            OR
+              user_username
+            LIKE
+              ?
+            ORDER BY
+              user_joined
+            DESC
+            LIMIT
+              {$start}, 10";
 
     $stmt = $this->db->pdo->prepare($sql);
 

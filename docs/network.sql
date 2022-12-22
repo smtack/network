@@ -8,7 +8,7 @@ CREATE TABLE `users` (
   `user_username` VARCHAR(25) NOT NULL,
   `user_email` VARCHAR(50) NOT NULL,
   `user_password` VARCHAR(256) NOT NULL,
-  `user_profile_picture` VARCHAR(256) DEFAULT 'default.jpg',
+  `user_profile_picture` VARCHAR(256) DEFAULT 'default.png',
   `user_joined` DATETIME DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (user_id)
 ) ENGINE=INNODB;

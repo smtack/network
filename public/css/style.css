@@ -283,6 +283,26 @@ a:hover {
   display: inline-block !important;
 }
 
+.pagination {
+  text-align: center;
+}
+
+.pagination a {
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.pagination a:hover {
+  background-color: red;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.pagination .selected {
+  background-color: red;
+  color: #ffffff;
+}
+
 .submit {
   border: none;
 }

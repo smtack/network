@@ -14,8 +14,9 @@ class Post {
     return false;
   }
 
-  public function getHomepagePosts($user) {
+  public function getHomepagePosts($user, $start) {
     $sql = "SELECT
+              SQL_CALC_FOUND_ROWS
               *
             FROM
               posts
@@ -36,7 +37,9 @@ class Post {
                 follow_user = ?))
             ORDER BY
               post_date
-            DESC";
+            DESC
+            LIMIT
+              {$start}, 10";
     
     $stmt = $this->db->pdo->prepare($sql);
 
@@ -50,8 +53,9 @@ class Post {
     return false;
   }
 
-  public function getProfilePosts($profile) {
+  public function getProfilePosts($profile, $start) {
     $sql = "SELECT
+              SQL_CALC_FOUND_ROWS
               *
             FROM
               posts
@@ -63,7 +67,9 @@ class Post {
               posts.post_profile = ?
             ORDER BY
               posts.post_date
-            DESC";
+            DESC
+            LIMIT
+              {$start}, 10";
     
     $stmt = $this->db->pdo->prepare($sql);
 
@@ -76,8 +82,9 @@ class Post {
     return false;
   }
 
-  public function getPublicPosts() {
+  public function getPublicPosts($start) {
     $sql = "SELECT
+              SQL_CALC_FOUND_ROWS
               *
             FROM
               posts
@@ -87,7 +94,9 @@ class Post {
               users.user_id = posts.post_by
             ORDER BY
               posts.post_date
-            DESC";
+            DESC
+            LIMIT
+              {$start}, 10";
     
     $stmt = $this->db->pdo->prepare($sql);
 

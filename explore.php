@@ -8,7 +8,15 @@ if(loggedIn()) {
   $user_info = $user->getUser($_SESSION['user']);
 }
 
-$posts = $post->getPublicPosts();
+$page = isset($_GET['p']) ? (int)$_GET['p'] : 1;
+
+$start = ($page > 1) ? ($page * 10) - 10 : 0;
+
+$posts = $post->getPublicPosts($start);
+
+$total = $db->pdo->query("SELECT FOUND_ROWS() as total")->fetch()->total;
+
+$pages = ceil($total / 10);
 
 $page_title = "Explore";
 

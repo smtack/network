@@ -31,6 +31,11 @@
           <?php endif; ?>
         </div>
       <?php endforeach; ?>
+      <div class="pagination">
+        <?php for($x = 1; $x <= $pages; $x++): ?>
+          <a href="?p=<?=$x?>"<?php if($page === $x) { echo 'class="selected"'; } ?>><?=$x?></a>
+        <?php endfor; ?>
+      </div>
     <?php endif; ?>
   </div>
 </div>

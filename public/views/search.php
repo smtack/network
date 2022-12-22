@@ -13,6 +13,11 @@
           <h6>Joined on <?=date('j F Y \a\t H:i', strtotime(escape($result->user_joined)))?></h6>
         </div>
       <?php endforeach; ?>
+      <div class="pagination">
+        <?php for($x = 1; $x <= $pages; $x++): ?>
+          <a href="?s=<?=str_replace('%', '', $keywords)?>&p=<?=$x?>"<?php if($page === $x) { echo 'class="selected"'; } ?>><?=$x?></a>
+        <?php endfor; ?>
+      </div>
     <?php endif; ?>
   </div>
 </div>

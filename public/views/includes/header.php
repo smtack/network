@@ -27,7 +27,7 @@
         </ul>
 
         <div class="search">
-          <form action="/search" method="POST">
+          <form action="/search" method="GET">
             <input type="text" name="s" placeholder="Search" value="<?=isset($keywords) ? str_replace('%', '', $keywords) : ''?>">
           </form>
         </div>
