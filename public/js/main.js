@@ -7,7 +7,8 @@ const search = document.querySelector('.search');
 const content = document.querySelector('.content');
 
 const textarea = document.querySelector('.post-content');
-const commentTextArea = document.querySelector('.comment-text');
+const commentTextarea = document.querySelector('.comment-text');
+const bioTextarea = document.querySelector('.bio-text');
 const submit = document.querySelector('#submit');
 const counter = document.querySelector('#counter');
 
@@ -61,13 +62,35 @@ if(textarea) {
   })
 }
 
-if(commentTextArea) {
-  counter.innerHTML = commentTextArea.value.length;
+if(commentTextarea) {
+  counter.innerHTML = commentTextarea.value.length;
 
-  commentTextArea.addEventListener('keyup', () => {
-    counter.innerHTML = commentTextArea.value.length;
+  commentTextarea.addEventListener('keyup', () => {
+    counter.innerHTML = commentTextarea.value.length;
 
-    if(commentTextArea.value.length > 500) {
+    if(commentTextarea.value.length > 500) {
+      counter.style.color = "#FF0000";
+      submit.style.backgroundColor = "#818181";
+      submit.style.color = "#FFFFFF";
+      submit.style.borderColor = "#818181";
+      submit.disabled = true;
+    } else {
+      counter.style.color = "#000000";
+      submit.style.backgroundColor = "#FF0000";
+      submit.style.color = "#FFFFFF";
+      submit.style.borderColor = "#FF0000";
+      submit.disabled = false;
+    }
+  })
+}
+
+if(bioTextarea) {
+  counter.innerHTML = bioTextarea.value.length;
+
+  bioTextarea.addEventListener('keyup', () => {
+    counter.innerHTML = bioTextarea.value.length;
+
+    if(bioTextarea.value.length > 250) {
       counter.style.color = "#FF0000";
       submit.style.backgroundColor = "#818181";
       submit.style.color = "#FFFFFF";
@@ -86,17 +109,5 @@ if(commentTextArea) {
 if(fileUpload) {
   fileUpload.addEventListener('change', () => {
     fileName.innerHTML = fileUpload.files[0].name;
-  })
-}
-
-if(submit) {
-  submit.addEventListener('mouseover', () => {
-    submit.style.backgroundColor = "#FFFFFF";
-    submit.style.color = "#FF0000";
-  })
-
-  submit.addEventListener('mouseout', () => {
-    submit.style.backgroundColor = "#FF0000";
-    submit.style.color = "#FFFFFF";
   })
 }

@@ -9,8 +9,17 @@ CREATE TABLE `users` (
   `user_email` VARCHAR(50) NOT NULL,
   `user_password` VARCHAR(256) NOT NULL,
   `user_profile_picture` VARCHAR(256) DEFAULT 'default.png',
+  `user_bio` VARCHAR(250),
   `user_joined` DATETIME DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (user_id)
+) ENGINE=INNODB;
+
+CREATE TABLE `friends` (
+  `friend_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `friend_user` INT(11) NOT NULL,
+  `friend_friend` INT(11) NOT NULL,
+  `friend_accepted` BOOLEAN DEFAULT 0,
+  PRIMARY KEY (friend_id)
 ) ENGINE=INNODB;
 
 CREATE TABLE `posts` (
@@ -30,13 +39,6 @@ CREATE TABLE `comments` (
   `comment_post` INT(11) NOT NULL,
   `comment_by` INT(11) NOT NULL,
   PRIMARY KEY (comment_id)
-) ENGINE=INNODB;
-
-CREATE TABLE `follows` (
-  `follow_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `follow_user` INT(11) NOT NULL,
-  `follow_follow` INT(11) NOT NULL,
-  PRIMARY KEY (follow_id)
 ) ENGINE=INNODB;
 
 CREATE TABLE `likes` (

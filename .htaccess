@@ -5,4 +5,4 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}.php -f
 RewriteRule ^([a-zA-Z-]+)/?([a-zA-Z0-9-/]*)$ $1.php?page=$1&query=$2 [QSA,L]
 
-ErrorDocument 404 /public/views/errors/404.php
+ErrorDocument 404 /network/public/views/errors/404.php

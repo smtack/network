@@ -11,16 +11,16 @@ class Database {
   public $opt;
 
   public function __construct() {
-    $this->pdo = null;
-
-    $this->dsn = "mysql:host=" . $this->dbhost . ";dbname=" . $this->dbname . ";charset=" . $this->dbchar;
+    $this->dsn = "mysql:host=$this->dbhost;dbname=$this->dbname;charset=$this->dbchar";
 
     $this->opt = [
       PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
       PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
       PDO::ATTR_EMULATE_PREPARES => false
     ];
+  }
 
+  public function connect() {
     try {
       $this->pdo = new PDO($this->dsn, $this->dbuser, $this->dbpass, $this->opt);
     } catch(\PDOException $e) {
@@ -122,5 +122,13 @@ class Database {
     $stmt = $this->select($table, $array);
 
     return ($stmt->rowCount() > 0) ? true : false;
+  }
+
+  public function query($sql, $params = null) {
+    $stmt = $this->pdo->prepare($sql);
+
+    $stmt->execute($params);
+
+    return $stmt;
   }
 }

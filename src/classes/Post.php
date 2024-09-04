@@ -15,120 +15,102 @@ class Post {
   }
 
   public function getHomepagePosts($user, $start) {
-    $sql = "SELECT
-              SQL_CALC_FOUND_ROWS
-              *
-            FROM
-              posts
-            LEFT JOIN
-              users
-            ON
-              users.user_id = posts.post_by
-            WHERE
-              (post_by = users.user_id AND users.user_id = ?)
-            OR
-              (post_by = users.user_id AND post_by
-            IN
-              (SELECT
-                follow_follow
-              FROM
-                follows
-              WHERE
-                follow_user = ?))
-            ORDER BY
-              post_date
-            DESC
-            LIMIT
-              {$start}, 10";
-    
-    $stmt = $this->db->pdo->prepare($sql);
+    $query = $this->db->query("SELECT
+                                SQL_CALC_FOUND_ROWS
+                                *
+                              FROM
+                                posts
+                              LEFT JOIN
+                                users
+                              ON
+                                users.user_id = posts.post_by
+                              WHERE
+                                (post_by = users.user_id AND users.user_id = ?)
+                              OR
+                                (post_by = users.user_id AND post_by
+                              IN
+                                (SELECT
+                                  friend_friend
+                                FROM
+                                  friends
+                                WHERE
+                                  friend_user = ? AND friend_accepted = 1))
+                                OR
+                                 (post_by = users.user_id AND post_by
+                                IN
+                                  (SELECT
+                                    friend_user
+                                  FROM
+                                    friends
+                                  WHERE
+                                    friend_friend = ? AND friend_accepted = 1))
+                              ORDER BY
+                                post_date
+                              DESC
+                              LIMIT
+                                {$start}, 10
+    ", [$user, $user, $user]);
 
-    $stmt->bindParam(1, $user);
-    $stmt->bindParam(2, $user);
-
-    if($stmt->execute()) {
-      return $stmt->fetchAll();
-    }
-
-    return false;
+    return $query->fetchAll();
   }
 
   public function getProfilePosts($profile, $start) {
-    $sql = "SELECT
-              SQL_CALC_FOUND_ROWS
-              *
-            FROM
-              posts
-            LEFT JOIN
-              users
-            ON
-              users.user_id = posts.post_by
-            WHERE
-              posts.post_profile = ?
-            ORDER BY
-              posts.post_date
-            DESC
-            LIMIT
-              {$start}, 10";
-    
-    $stmt = $this->db->pdo->prepare($sql);
+    $query = $this->db->query("SELECT
+                                SQL_CALC_FOUND_ROWS
+                                *
+                              FROM
+                                posts
+                              LEFT JOIN
+                                users
+                              ON
+                                users.user_id = posts.post_by
+                              WHERE
+                                posts.post_profile = ?
+                              ORDER BY
+                                posts.post_date
+                              DESC
+                              LIMIT
+                                {$start}, 10
+    ", [$profile]);
 
-    $stmt->bindParam(1, $profile);
-
-    if($stmt->execute()) {
-      return $stmt->fetchAll();
-    }
-
-    return false;
+    return $query->fetchAll();
   }
 
   public function getPublicPosts($start) {
-    $sql = "SELECT
-              SQL_CALC_FOUND_ROWS
-              *
-            FROM
-              posts
-            LEFT JOIN
-              users
-            ON
-              users.user_id = posts.post_by
-            ORDER BY
-              posts.post_date
-            DESC
-            LIMIT
-              {$start}, 10";
-    
-    $stmt = $this->db->pdo->prepare($sql);
+    $query = $this->db->query("SELECT
+                                SQL_CALC_FOUND_ROWS
+                                *
+                              FROM
+                                posts
+                              LEFT JOIN
+                                users
+                              ON
+                                users.user_id = posts.post_by
+                              ORDER BY
+                                posts.post_date
+                              DESC
+                              LIMIT
+                                {$start}, 10
+    ");
 
-    if($stmt->execute()) {
-      return $stmt->fetchAll();
-    }
-
-    return false;
+    return $query->fetchAll();
   }
 
   public function getPost($post) {
-    $sql = "SELECT
-              *
-            FROM
-              posts
-            LEFT JOIN
-              users
-            ON
-              users.user_id = posts.post_by
-            WHERE
-              posts.post_id = ?
-            LIMIT 1";
+    $query = $this->db->query("SELECT
+                                *
+                              FROM
+                                posts
+                              LEFT JOIN
+                                users
+                              ON
+                                users.user_id = posts.post_by
+                              WHERE
+                                posts.post_id = ?
+                              LIMIT 1
+    ", [$post]);
 
-    $stmt = $this->db->pdo->prepare($sql);
-
-    $stmt->bindParam(1, $post);
-
-    if($stmt->execute()) {
-      return $stmt->fetch();
-    }
-
-    return false;
+    return $query->fetch();
   }
 
   public function editPost($data, $post) {
@@ -156,17 +138,9 @@ class Post {
   }
 
   public function getComments($post) {
-    $sql = "SELECT * FROM comments LEFT JOIN users ON users.user_id = comments.comment_by WHERE comment_post = ? ORDER BY comment_date DESC";
+    $query = $this->db->query("SELECT * FROM comments LEFT JOIN users ON users.user_id = comments.comment_by WHERE comment_post = ? ORDER BY comment_date DESC", [$post]);
 
-    $stmt = $this->db->pdo->prepare($sql);
-
-    $stmt->bindParam(1, $post);
-
-    if($stmt->execute()) {
-      return $stmt->fetchAll();
-    }
-
-    return false;
+    return $query->fetchAll();
   }
 
   public function getComment($comment) {

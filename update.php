@@ -35,6 +35,24 @@ if(isset($_POST['update'])) {
   }
 }
 
+if(isset($_POST['update_bio'])) {
+  if(!check($_POST['bio_token'], 'bio_token')) {
+    $bio_error = "Token Invalid";
+  } else if(empty($_POST['user_bio'])) {
+    $bio_error = "Enter some text";
+  } else {
+    $data = [
+      'user_bio' => escape($_POST['user_bio'])
+    ];
+
+    if($user->updateProfile($data, $user_info->user_id)) {
+      redirect('update');
+    } else {
+      $bio_error = "Unable to update bio";
+    }
+  }
+}
+
 if(isset($_POST['upload_profile_picture'])) {
   if(!check($_POST['picture_token'], 'picture_token')) {
     $picture_error = "Token Invalid";
@@ -45,9 +63,8 @@ if(isset($_POST['upload_profile_picture'])) {
     $file_name = basename($_FILES['user_profile_picture']['name']);
     $path = $target_dir . $file_name;
     $file_type = pathinfo($path, PATHINFO_EXTENSION);
-    $allow_types = array('jpg', 'png');
 
-    if(!in_array($file_type, $allow_types)) {
+    if(!in_array($file_type, $allowed_types)) {
       $picture_error = "This file type is not supported";
     } else if(!move_uploaded_file($_FILES['user_profile_picture']['tmp_name'], $path)) {
       $picture_error = "Unable to upload profile picture. Try again later.";
@@ -75,7 +92,7 @@ if(isset($_POST['update_password'])) {
   } else {
     $data = ['user_password' => password_hash($_POST['new_password'], PASSWORD_BCRYPT)];
 
-    if($user->updatePassword($data, $user_info->user_id)) {
+    if($user->updateProfile($data, $user_info->user_id)) {
       redirect('update');
     } else {
       $password_error = "Unable to change password";

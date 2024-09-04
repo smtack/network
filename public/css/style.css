@@ -44,6 +44,11 @@ a:hover {
   margin-left: 20px;
 }
 
+.icon {
+  width: 24px;
+  height: 24px;
+}
+
 #toggle-menu {
   width: 35px;
   height: 35px;
@@ -192,6 +197,7 @@ a:hover {
 
 .info img {
   width: 50px;
+  height: 50px;
   border-radius: 100%;
   margin-bottom: 10px;
 }
@@ -209,19 +215,19 @@ a:hover {
 }
 
 .info p {
-  font-weight: lighter;
+  margin-top: 25px;
+  font-size: 14px;
 }
 
-.follow-img {
+.friend-img {
   margin: 10px 10px 10px 0;
 }
 
-#follow {
-  display: block;
-  width: 100%;
+#friend {
+  display: inline-block;
   height: 40px;
   padding: 10px;
-  margin: 10px 0;
+  margin: 25px 0 10px 0;
   border: 1px solid #d3d3d3;
   border-radius: 5px;
   background-color: red;
@@ -229,7 +235,7 @@ a:hover {
   border: 1px solid red;
 }
 
-#follow:hover {
+#friend:hover {
   background-color: white;
   color: red;
   cursor: pointer;
@@ -422,6 +428,7 @@ a:hover {
 
 .result-info img {
   width: 50px;
+  height: 50px;
   border-radius: 100%;
   margin-bottom: 10px;
   float: left;
@@ -433,6 +440,10 @@ a:hover {
   padding-bottom: 10px;
   font-weight: 100;
   margin-left: 100px;
+}
+
+.result-info a:hover {
+  text-decoration: none;
 }
 
 .footer {

@@ -23,8 +23,8 @@ if(!loggedIn()) {
       unlink($file_to_delete);
     }
     
-    redirect('home');
+    redirect();
   } else {
-    redirect('home');
+    redirect();
   }
 }

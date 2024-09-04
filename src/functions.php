@@ -1,25 +1,41 @@
 <?php
-// Sanitize user input
+
+// Sanitize user input and ouput
 function escape($string) {
   return htmlentities($string, ENT_QUOTES, 'UTF-8');
 }
 
-// Redirect user
-function redirect($location) {
-  if(is_numeric($location)) {
-    switch($location) {
-      case 404:
-        header('HTTP/1.0 404 Not Found');
-
-        include_once VIEW_ROOT . '/errors/404.php';
-
-        exit();
-      break;
-    }
+// Return BASE URL and optional location for links
+function base_url($location = null) {
+  if(!$location) {
+    return BASE_URL;
   } else {
-    header('Location: /' . $location);
+    return BASE_URL . $location;
+  }
+}
 
-    exit();
+// Return PHP_SELF variable for forms
+function self() {
+  return $_SERVER['PHP_SELF'];
+}
+
+// Redirect user
+function redirect($location = null) {
+  switch($location) {
+    case null:
+      header("Location: " . $_SERVER['HTTP_REFERER']);
+
+      exit();
+    case 404:
+      header('HTTP/1.0 404 Not Found');
+
+      include_once VIEW_ROOT . '/errors/404.php';
+
+      exit();
+    default:
+      header("Location: " . BASE_URL . $location);
+
+      exit();
   }
 }
 
@@ -48,7 +64,7 @@ function errorHandler() {
   if(error_reporting()) {
     include_once VIEW_ROOT . '/errors/error.php';
 
-    die();
+    exit();
   }
 }
 

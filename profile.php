@@ -23,8 +23,6 @@ if(!isset($_GET['query']) || empty($_GET['query'])) {
     $total = $db->pdo->query("SELECT FOUND_ROWS() as total")->fetch()->total;
 
     $pages = ceil($total / 10);
-
-    $follows_data = $user->getFollowsData($profile_info->user_id);
   }
 }
 
@@ -39,9 +37,8 @@ if(isset($_POST['submit'])) {
       $file_name = basename($_FILES['post_image']['name']);
       $path = $target_dir . $file_name;
       $file_type = pathinfo($path, PATHINFO_EXTENSION);
-      $allow_types = array('jpg', 'png', 'gif');
 
-      if(!in_array($file_type, $allow_types)) {
+      if(!in_array($file_type, $allowed_types)) {
         $error = "This file type is not supported";
       } else if(!move_uploaded_file($_FILES['post_image']['tmp_name'], $path)) {
         $error = "Unable to upload image. Try again later.";

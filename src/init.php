@@ -3,7 +3,7 @@ require_once "config.php";
 require_once "functions.php";
 
 spl_autoload_register(function($class) {
-  include_once "classes/" . $class . ".php";
+  include_once "classes/$class.php";
 });
 
 // set_error_handler('errorHandler');
@@ -14,4 +14,6 @@ session_start();
 
 $db = new Database();
 
-$self = escape($_SERVER['PHP_SELF']);
+$db->connect();
+
+$allowed_types = ['jpg', 'jpeg', 'png', 'webp', 'jfif'];
