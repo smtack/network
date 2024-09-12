@@ -19,10 +19,10 @@ if(!isset($_SESSION['user'])) {
 
   $pages = ceil($total / 10);
 
-  $friendsOfMine = $user->friendsOfMine($user_info->user_id);
-  $friendOf = $user->friendOf($user_info->user_id);
+  $friendsOf = $user->friendsOf($user_info->user_id);
+  $friendsTo = $user->friendsTo($user_info->user_id);
 
-  $friends = (object) array_merge((array) $friendsOfMine, (array) $friendOf);
+  $friends = (object) array_merge((array) $friendsOf, (array) $friendsTo);
 }
 
 require VIEW_ROOT . '/home.php';

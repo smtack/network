@@ -1,7 +1,7 @@
 <?php require_once VIEW_ROOT . '/includes/header.php'; ?>
 
 <div class="content">
-  <div class="posts page">
+  <div class="single-page">
     <div class="heading">
       <h2>Update Profile</h2>
     </div>

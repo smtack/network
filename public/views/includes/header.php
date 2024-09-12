@@ -13,7 +13,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 
   <script src="<?= base_url('public/js/main.js') ?>" defer></script>
 
@@ -28,6 +28,7 @@
         <ul id="options">
           <li><img id="toggle-search" class="icon" src="<?= base_url('public/img/Search.svg') ?>" alt="Search"></li>
           <li><a href="<?= base_url('explore') ?>"><img class="icon" src="<?= base_url('public/img/Explore.svg') ?>" alt="Explore"></a></li>
+          <li><a href="<?= base_url('likes') ?>"><img class="icon" src="<?= base_url('public/img/Like-Black.svg') ?>" alt="Likes"></a></li>
           <li><a href="<?= base_url('friends') ?>"><img class="icon" src="<?= base_url('public/img/Friends.svg') ?>" alt="Friends"></a></li>
           <li><img id="toggle-menu" src="<?= base_url("uploads/profile-pictures/$user_info->user_profile_picture") ?>" alt="Toggle Menu"></li>
         </ul>

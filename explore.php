@@ -6,6 +6,8 @@ $post = new Post($db);
 
 if(loggedIn()) {
   $user_info = $user->getUser($_SESSION['user']);
+} else {
+  redirect('index');
 }
 
 $page = isset($_GET['p']) ? (int)$_GET['p'] : 1;

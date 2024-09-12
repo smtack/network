@@ -6,6 +6,8 @@ $post = new Post($db);
 
 if(loggedIn()) {
   $user_info = $user->getUser($_SESSION['user']);
+} else {
+  redirect('index');
 }
 
 if(!isset($_GET['query']) || empty($_GET['query'])) {
@@ -23,6 +25,11 @@ if(!isset($_GET['query']) || empty($_GET['query'])) {
     $total = $db->pdo->query("SELECT FOUND_ROWS() as total")->fetch()->total;
 
     $pages = ceil($total / 10);
+
+    $friendsOf = $user->friendsOf($profile_info->user_id);
+    $friendsTo = $user->friendsTo($profile_info->user_id);
+
+    $friends = (object) array_merge((array) $friendsOf, (array) $friendsTo); 
   }
 }
 

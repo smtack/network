@@ -1,9 +1,12 @@
 <?php require_once VIEW_ROOT . '/includes/header.php'; ?>
 
 <div class="content">
-  <div class="single-post">
+  <div class="single-page">
     <h3><a href="<?= base_url('profile/') . escape($post_data->user_username) ?>"><?= escape($post_data->user_name) ?></a></h3>
-    <h6><?= date('j F Y H:i', strtotime(escape($post_data->post_date))) ?></h6>
+    <h6>
+      <?= date('j F Y H:i', strtotime(escape($post_data->post_date))) ?>
+      on <a href="<?= base_url('profile/') . $post_user->user_username ?>"><?= $post_user->user_name ?>'s Profile</a>
+    </h6>
     <p><?= escape($post_data->post_content) ?></p>
 
     <?php if($post_data->post_image): ?>
@@ -11,21 +14,19 @@
     <?php endif; ?>
     
     <?php if(loggedIn()): ?>
-      <span class="options">
+      <span class="like">
         <?php if(!findValue($likes_data, 'like_user', $user_info->user_id)): ?>
           <a href="<?= base_url('like/') . escape($post_data->post_id) ?>"><img src="<?= base_url('public/img/Like.svg') ?>" alt="Like"></a>
         <?php else: ?>
           <a href="<?= base_url('unlike/') . escape($post_data->post_id) ?>"><img src="<?= base_url('public/img/Unlike.svg') ?>" alt="Unlike"></a>
         <?php endif; ?>
-
-        <p id="like-count"><?= count($likes_data) == 1 ? count($likes_data) . ' Like' : count($likes_data) . ' Likes' ?></span>
       </span>
+      <span class="like-count"><?= count($likes_data) == 1 ? count($likes_data) . ' Like' : count($likes_data) . ' Likes' ?></span>
     <?php endif; ?>
 
     <?php if(loggedIn() && $post_data->post_by == $user_info->user_id): ?>
       <span class="options">
         <a href="<?= base_url('edit/') . escape($post_data->post_id) ?>">Edit</a>
-        <a href="<?= base_url('delete/') . escape($post_data->post_id) ?>">Delete</a>
       </span>
     <?php endif; ?>
 
@@ -59,7 +60,6 @@
           <?php if(loggedIn() && $comment->comment_by == $user_info->user_id): ?>
             <span class="options">
               <a href="<?= base_url('edit-comment/') . escape($comment->comment_id) ?>"><img src="<?= base_url('public/img/Edit.svg') ?>" alt="Edit Comment"></a>
-              <a href="<?= base_url('delete-comment/') . escape($comment->comment_id) ?>"><img src="<?= base_url('public/img/Delete.svg') ?>" alt="Delete Comment"></a>
             </span>
           <?php endif; ?>
         </div>

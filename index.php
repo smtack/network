@@ -3,7 +3,7 @@ require_once 'src/init.php';
 
 $user = new User($db);
 
-if(isset($_SESSION['user'])) {
+if(loggedIn()) {
   redirect('home');
 }
 

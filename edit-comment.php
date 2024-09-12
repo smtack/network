@@ -34,6 +34,18 @@ if(isset($_POST['edit_comment'])) {
   }
 }
 
+if(isset($_POST['delete_comment'])) {
+  if(!check($_POST['delete_token'], 'delete_token')) {
+    $delete_error = "Token Invalid";
+  } else {
+    if($post->deleteComment($comment_data->comment_id)) {
+      redirect('post/' . $comment_data->comment_post);
+    } else {
+      redirect('post/' . $comment_data->comment_post);
+    }
+  }
+}
+
 $page_title = "Edit Comment";
 
 require VIEW_ROOT . '/edit-comment.php';

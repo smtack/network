@@ -14,6 +14,8 @@ if(!isset($_GET['query'])) {
   redirect(404);
 }
 
+$post_user = $user->getUser($post_data->post_profile);
+
 $likes_data = $post->getLikesData($post_data->post_id);
 
 $comments = $post->getComments($post_data->post_id);

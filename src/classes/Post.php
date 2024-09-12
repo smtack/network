@@ -96,6 +96,34 @@ class Post {
     return $query->fetchAll();
   }
 
+  public function getLikedPosts($user, $start) {
+    $query = $this->db->query("SELECT
+                                SQL_CALC_FOUND_ROWS
+                                *
+                              FROM
+                                posts
+                              LEFT JOIN
+                                likes
+                              ON
+                                posts.post_id = likes.like_post
+                              LEFT JOIN
+                                users
+                              ON
+                                posts.post_by = users.user_id
+                              WHERE
+                                posts.post_id = likes.like_post
+                              AND
+                                likes.like_user = $user
+                              ORDER BY
+                                post_date
+                              DESC
+                              LIMIT
+                                {$start}, 10
+    ");
+
+    return $query->fetchAll();
+  }
+
   public function getPost($post) {
     $query = $this->db->query("SELECT
                                 *

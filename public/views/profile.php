@@ -15,11 +15,24 @@
       <?php if(loggedIn() && $profile_info->user_id !== $user_info->user_id): ?>
         <?php if(!$user->isFriends($user_info->user_id, $profile_info->user_id)): ?>
           <a href="<?= base_url('friend/') . escape($profile_info->user_id) ?>"><button id="friend">Add as Friend</button></a>
-        <?php elseif($user->isFriendRequestPending($user_info->user_id)): ?>
+        <?php elseif($user->isFriendRequestPending($user_info->user_id, $profile_info->user_id)): ?>
           <a href="<?= base_url('accept/') . escape($profile_info->user_id) ?>"><button id="friend">Accept Friend Request</button></a>
         <?php else: ?>
           <a href="<?= base_url('unfriend/') . escape($profile_info->user_id) ?>"><button id="friend">Remove Friend</button></a>
         <?php endif; ?>
+      <?php endif; ?>
+    </div>
+    <div class="info">
+      <h3><?= escape($profile_info->user_name) ?>'s Friends</h3>
+
+      <?php if(!(array)$friends): ?>
+        <p><?= escape($profile_info->user_name) ?> doesn't have any friends</p>
+      <?php else: ?>
+        <?php foreach($friends as $friend): ?>
+          <a href="<?= base_url('profile/') . escape($friend->user_username) ?>">
+            <img class="friend-img" src="<?= base_url("uploads/profile-pictures/$friend->user_profile_picture") ?>">
+          </a>
+        <?php endforeach; ?>
       <?php endif; ?>
     </div>
   </div>
@@ -56,27 +69,7 @@
       <h3 class="message">Make a post on <?= escape($profile_info->user_name) ?>'s profile...<h3>
     <?php else: ?>
       <?php foreach($posts as $post): ?>
-        <div class="post" onclick="location.href='<?= base_url('post/') . escape($post->post_id) ?>'">
-          <h5><a href="<?= base_url('profile/') . escape($post->user_username) ?>"><?= escape($post->user_name) ?></a></h5>
-          <h6><?= date('j F Y H:i', strtotime(escape($post->post_date))) ?></h6>
-
-          <?php if(strlen($post->post_content) > 140): ?>
-            <p><?= substr(escape($post->post_content), 0, 140) . '...' ?></p>
-          <?php else: ?>
-            <p><?= escape($post->post_content) ?></p>
-          <?php endif; ?>
-
-          <?php if($post->post_image): ?>
-            <img src="<?= base_url("uploads/post-images/$post->post_image") ?>">
-          <?php endif; ?>
-
-          <?php if(loggedIn() && $post->post_by == $user_info->user_id): ?>
-            <span class="options">
-              <a href="<?= base_url('edit/') . escape($post->post_id) ?>">Edit</a>
-              <a href="<?= base_url('delete/') . escape($post->post_id) ?>">Delete</a>
-            </span>
-          <?php endif; ?>
-        </div>
+        <?php include 'public/views/templates/post-card.php' ?>
       <?php endforeach; ?>
       <div class="pagination">
         <?php for($x = 1; $x <= $pages; $x++): ?>

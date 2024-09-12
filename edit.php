@@ -59,6 +59,25 @@ if(isset($_POST['edit'])) {
   }
 }
 
+if(isset($_POST['delete'])) {
+  if(!check($_POST['delete_token'], 'delete_token')) {
+    $delete_error = "Token Invalid";
+  } else {
+    $image_dir = "uploads/post-images/";
+    $file_to_delete = $image_dir . $post_data->post_image;
+  
+    if($post->deletePost($post_data->post_id)) {
+      if(file_exists($file_to_delete)) {
+        unlink($file_to_delete);
+      }
+      
+      redirect('home');
+    } else {
+      $delete_error = "Unable to delete post. Try again later.";
+    }
+  }
+}
+
 $page_title = "Edit Post";
 
 require VIEW_ROOT . '/edit.php';

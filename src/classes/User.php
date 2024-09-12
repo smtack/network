@@ -124,8 +124,8 @@ class User {
     return false;
   }
 
-  public function isFriendRequestPending($user) {
-    if($this->db->exists('friends', ['friend_friend' => $user, 'friend_accepted' => 0])) {
+  public function isFriendRequestPending($user, $friend) {
+    if($this->db->exists('friends', ['friend_user' => $friend, 'friend_friend' => $user, 'friend_accepted' => 0])) {
       return true;
     }
 
@@ -142,13 +142,13 @@ class User {
     }
   }
 
-  public function friendsOfMine($user) {
+  public function friendsOf($user) {
     $query = $this->db->query("SELECT * FROM friends LEFT JOIN users ON users.user_id = friends.friend_friend WHERE friends.friend_user = $user AND friends.friend_accepted = 1");
 
     return $query->fetchAll();
   }
 
-  public function friendOf($user) {
+  public function friendsTo($user) {
     $query = $this->db->query("SELECT * FROM friends LEFT JOIN users ON users.user_id = friends.friend_user WHERE friends.friend_friend = $user AND friends.friend_accepted = 1");
 
     return $query->fetchAll();
