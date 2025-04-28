@@ -43,15 +43,24 @@ class Database {
     $pref = "";
 
     foreach($array as $key => $value) {
-      $sql .= $pref . "'" . $value . "'";
+      $sql .= $pref . ":" . $key;
       $pref = ", ";
     }
 
-    $sql .= ");";
+    $sql .= ")";
 
     $stmt = $this->pdo->prepare($sql);
 
-    $stmt->execute();
+    foreach($array as $key => $value) {
+      $stmt->bindValue(":$key", $value);
+    }
+
+    try {
+      $stmt->execute();
+    } catch(\PDOException $e) {
+      error_log("Error: " . $e->getMessage() . "Code: " . $e->getCode());
+      throw new Exception("An error occurred");
+    }
 
     return $stmt;
   }
@@ -61,15 +70,22 @@ class Database {
     $pref = " WHERE ";
 
     foreach($array as $key => $value) {
-      $sql .= $pref . $key . "='" . $value . "'";
+      $sql .= $pref . $key . "=:" . $key;
       $pref = " AND ";
     }
 
-    $sql .= ";";
-
     $stmt = $this->pdo->prepare($sql);
 
-    $stmt->execute();
+    foreach($array as $key => $value) {
+      $stmt->bindValue(":$key", $value);
+    }
+
+    try {
+      $stmt->execute();
+    } catch(\PDOException $e) {
+      error_log("Error: " . $e->getMessage() . "Code: " . $e->getCode());
+      throw new Exception("An error occurred");
+    }
 
     return $stmt;
   }
@@ -79,7 +95,7 @@ class Database {
     $pref = "";
 
     foreach($array as $key => $value) {
-      $sql .= $pref . $key . "='" . $value . "'";
+      $sql .= $pref . $key . "=:set_" . $key;
       $pref = ", ";
     }
 
@@ -87,15 +103,26 @@ class Database {
     $pref = "";
 
     foreach($field as $key => $value) {
-      $sql .= $pref . $key . "='" . $value . "'";
+      $sql .= $pref . $key . "=:where_" . $key;
       $pref = " AND ";
     }
 
-    $sql .= ";";
-
     $stmt = $this->pdo->prepare($sql);
 
-    $stmt->execute();
+    foreach($array as $key => $value) {
+      $stmt->bindValue(":set_$key", $value);
+    }
+
+    foreach($field as $key => $value) {
+      $stmt->bindValue(":where_$key", $value);
+    }
+
+    try {
+      $stmt->execute();
+    } catch(\PDOException $e) {
+      error_log("Error: " . $e->getMessage() . "Code: " . $e->getCode());
+      throw new Exception("An error occurred");
+    }
 
     return $stmt;
   }
@@ -105,29 +132,45 @@ class Database {
     $pref = " WHERE ";
 
     foreach($array as $key => $value) {
-      $sql .= $pref . $key . "='" . $value . "'";
+      $sql .= $pref . $key . "=:" . $key;
       $pref = " AND ";
     }
 
-    $sql .= ";";
-
     $stmt = $this->pdo->prepare($sql);
-    
-    $stmt->execute();
 
+    foreach($array as $key => $value) {
+      $stmt->bindValue(":$key", $value);
+    }
+
+    try {
+      $stmt->execute();
+    } catch(\PDOException $e) {
+      error_log("Error: " . $e->getMessage() . "Code: " . $e->getCode());
+      throw new Exception("An error occurred");
+    }
+    
     return $stmt;
   }
 
   public function exists($table, $array) {
     $stmt = $this->select($table, $array);
 
-    return ($stmt->rowCount() > 0) ? true : false;
+    return $stmt->rowCount() > 0;
   }
 
-  public function query($sql, $params = null) {
+  public function query($sql, $params = []) {
     $stmt = $this->pdo->prepare($sql);
 
-    $stmt->execute($params);
+    for($p = 1, $length = count($params); $p <= $length; $p++) {
+      $stmt->bindValue($p, $params[$p-1]);
+    }
+
+    try {
+      $stmt->execute();
+    } catch(\PDOException $e) {
+      error_log("Error: " . $e->getMessage() . "Code: " . $e->getCode());
+      throw new Exception("An error occurred");
+    }
 
     return $stmt;
   }

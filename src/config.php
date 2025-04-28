@@ -1,11 +1,13 @@
 <?php
+// Database connection
+define('DB_HOST', '');
+define('DB_NAME', '');
+define('DB_USER', '');
+define('DB_PASSWORD', '');
+define('DB_CHARSET', '');
 
-const DB_HOST = '';
-const DB_NAME = '';
-const DB_USER = '';
-const DB_PASSWORD = '';
-const DB_CHARSET = '';
+// Base app URL: leave trailing slash
+define('BASE_URL', '');
 
-// BASE_URL should have trailing slash
-const BASE_URL = '';
-const VIEW_ROOT = 'public/views';
+// View root: relative to this file
+define('VIEW_ROOT', __DIR__ . '/views');

@@ -6,9 +6,13 @@ spl_autoload_register(function($class) {
   include_once "classes/$class.php";
 });
 
-// set_error_handler('errorHandler');
-ini_set("display_errors", "on");
+// Error Reporting
+ini_set("display_errors", "On");
+ini_set("display_startup_errors", "On");
+ini_set('log_errors', 'On');
+
 error_reporting(E_ALL);
+// set_error_handler('errorHandler');
 
 session_start();
 
