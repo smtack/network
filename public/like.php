@@ -1,13 +1,10 @@
 <?php
 require_once '../src/init.php';
 
-$user = new User($db);
 $post = new Post($db);
 
-if(!loggedIn()) {
+if(!$user->isLoggedIn()) {
   redirect('index');
-} else {
-  $user_info = $user->getUser($_SESSION['user']);
 }
 
 if(!isset($_GET['query'])) {

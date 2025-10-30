@@ -1,11 +1,7 @@
 <?php
 require_once '../src/init.php';
 
-$user = new User($db);
-
-if(isset($_SESSION['user'])) {
-  $user_info = $user->getUser($_SESSION['user']);
-} else {
+if(!$user->isLoggedIn()) {
   redirect('index');
 }
 
@@ -26,8 +22,6 @@ if(isset($_POST['update'])) {
     ];
 
     if($user->updateProfile($data, $user_info->user_id)) {
-      $_SESSION['user'] = $data['user_username'];
-      
       redirect('update');
     } else {
       $error = "Unable to update profile";
@@ -62,19 +56,34 @@ if(isset($_POST['upload_profile_picture'])) {
     $target_dir = "../uploads/profile-pictures/";
     $file_name = basename($_FILES['user_profile_picture']['name']);
     $path = $target_dir . $file_name;
-    $file_type = pathinfo($path, PATHINFO_EXTENSION);
+    $ext = pathinfo($path, PATHINFO_EXTENSION);
 
-    if(!in_array($file_type, $allowed_types)) {
+    if(!in_array($ext, $allowed_types)) {
       $picture_error = "This file type is not supported";
-    } else if(!move_uploaded_file($_FILES['user_profile_picture']['tmp_name'], $path)) {
-      $picture_error = "Unable to upload profile picture. Try again later.";
     } else {
-      $data = ['user_profile_picture' => escape($file_name)];
+      $unique_filename = createUniqueFilename($file_name);
 
-      if($user->updateProfile($data, $user_info->user_id)) {
-        redirect('update');
-      } else {
+      $new_path = $target_dir . $unique_filename . '.' . $ext;
+      $new_filename = $unique_filename . '.' . $ext;
+
+      if(!move_uploaded_file($_FILES['user_profile_picture']['tmp_name'], $new_path)) {
         $picture_error = "Unable to upload profile picture. Try again later.";
+      } else {
+        $data = ['user_profile_picture' => $new_filename];
+
+        $old_filename = $target_dir . $user_info->user_profile_picture;
+
+        if(file_exists($old_filename)) {
+          if($old_filename !== $target_dir . 'default.png') {
+            unlink($old_filename);
+          }
+        }
+
+        if($user->updateProfile($data, $user_info->user_id)) {
+          redirect('update');
+        } else {
+          $picture_error = "Unable to upload profile picture. Try again later.";
+        }
       }
     }
   }

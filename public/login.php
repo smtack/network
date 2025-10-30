@@ -1,9 +1,7 @@
 <?php
 require_once '../src/init.php';
 
-$user = new User($db);
-
-if(loggedIn()) {
+if($user->isLoggedIn()) {
   redirect('home');
 }
 
@@ -18,9 +16,9 @@ if(isset($_POST['login'])) {
       'user_password' => escape($_POST['user_password'])
     ];
 
-    if($user->checkUser($data)) {
-      $_SESSION['user'] = $data['user_username'];
-      
+    $remember = isset($_POST['remember']);
+
+    if($user->login($data, $remember)) {
       redirect('home');
     } else {
       $error = "Username or Password Incorrect";

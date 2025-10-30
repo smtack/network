@@ -1,0 +1,5 @@
+uploads/post-images/*
+!uploads/post-images/readme.md
+
+uploads/profile-pictures/*
+!uploads/profile-pictures/default.png

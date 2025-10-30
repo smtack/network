@@ -1,11 +1,7 @@
 <?php
 require_once '../src/init.php';
 
-$user = new User($db);
-
-if(loggedIn()) {
-  $user_info = $user->getUser($_SESSION['user']);
-} else {
+if(!$user->isLoggedIn()) {
   redirect('index');
 }
 

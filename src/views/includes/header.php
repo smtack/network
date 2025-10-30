@@ -13,7 +13,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
   <script src="<?= base_url('public/js/main.js') ?>" defer></script>
 
@@ -24,7 +24,7 @@
     <div class="header">
       <h1 id="logo"><a href="<?= base_url() ?>">network</a></h1>
 
-      <?php if(loggedIn() && isset($user_info)): ?>
+      <?php if(isset($user) && $user->isLoggedIn() && isset($user_info)): ?>
         <ul id="options">
           <li><img id="toggle-search" class="icon" src="<?= base_url('public/img/Search.svg') ?>" alt="Search"></li>
           <li><a href="<?= base_url('explore') ?>"><img class="icon" src="<?= base_url('public/img/Explore.svg') ?>" alt="Explore"></a></li>

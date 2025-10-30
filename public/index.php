@@ -1,9 +1,7 @@
 <?php
 require_once '../src/init.php';
 
-$user = new User($db);
-
-if(loggedIn()) {
+if($user->isLoggedIn()) {
   redirect('home');
 }
 
@@ -20,18 +18,16 @@ if(isset($_POST['signup'])) {
     $error = "Passwords must match";
   } else {
     $data = [
-      'user_name' => escape($_POST['user_name']),
-      'user_username' => escape($_POST['user_username']),
-      'user_email' => escape($_POST['user_email']),
-      'user_password' => password_hash($_POST['user_password'], PASSWORD_BCRYPT)
+      'user_name' => $_POST['user_name'],
+      'user_username' => $_POST['user_username'],
+      'user_email' => $_POST['user_email'],
+      'user_password' => $_POST['user_password']
     ];
 
-    if($user->createUser($data)) {
-      $_SESSION['user'] = $data['user_username'];
-      
-      redirect('home');
-    } else {
+    if(!$user->register($data)) {
       $error = "Unable to sign up. Try again later.";
+    } else {
+      redirect('home');
     }
   }
 }

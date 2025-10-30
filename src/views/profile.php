@@ -12,7 +12,7 @@
         <p><?= $profile_info->user_bio ?></p>
       <?php endif; ?>
 
-      <?php if(loggedIn() && $profile_info->user_id !== $user_info->user_id): ?>
+      <?php if($user->isLoggedIn() && $profile_info->user_id !== $user_info->user_id): ?>
         <?php if(!$user->isFriends($user_info->user_id, $profile_info->user_id)): ?>
           <a href="<?= base_url('friend/') . escape($profile_info->user_id) ?>"><button id="friend">Add as Friend</button></a>
         <?php elseif($user->isFriendRequestPending($user_info->user_id, $profile_info->user_id)): ?>
@@ -37,7 +37,7 @@
     </div>
   </div>
   
-  <?php if(loggedIn()): ?>
+  <?php if($user->isLoggedIn()): ?>
     <div class="posts submit">
       <div class="form">
         <form enctype="multipart/form-data" action="<?php self() ?>" method="POST">

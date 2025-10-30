@@ -1,6 +1,6 @@
 <?php
 
-// Sanitize database ouput
+// Sanitise database ouput
 function escape($string) {
   return htmlentities($string, ENT_QUOTES, 'UTF-8');
 }
@@ -37,11 +37,6 @@ function redirect($location = null) {
 
       exit();
   }
-}
-
-// Check if user is logged in
-function loggedIn() {
-  return isset($_SESSION['user']) ? true : false;
 }
 
 // Check for a value in a multidimensional array
@@ -87,4 +82,15 @@ function check($token, $name) {
   }
 
   return false;
+}
+
+// Generate unique filename
+function createUniqueFilename($filename) {
+  $hashed_filename = hash('sha256', $filename);
+
+  $shortened_hash = substr($hashed_filename, 0, 16);
+
+  $unique_filename = $shortened_hash . time();
+
+  return $unique_filename;
 }

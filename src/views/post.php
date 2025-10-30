@@ -3,6 +3,7 @@
 <div class="content">
   <div class="single-page">
     <h3><a href="<?= base_url('profile/') . escape($post_data->user_username) ?>"><?= escape($post_data->user_name) ?></a></h3>
+    <h4><a href="<?= base_url('profile/') . escape($post_data->user_username) ?>">@<?= escape($post_data->user_username) ?></a></h4>
     <h6>
       <?= date('j F Y H:i', strtotime(escape($post_data->post_date))) ?>
       on <a href="<?= base_url('profile/') . $post_user->user_username ?>"><?= $post_user->user_name ?>'s Profile</a>
@@ -13,7 +14,7 @@
       <img src="<?= base_url("uploads/post-images/$post_data->post_image") ?>">
     <?php endif; ?>
     
-    <?php if(loggedIn()): ?>
+    <?php if($user->isLoggedIn()): ?>
       <span class="like">
         <?php if(!findValue($likes_data, 'like_user', $user_info->user_id)): ?>
           <a href="<?= base_url('like/') . escape($post_data->post_id) ?>"><img src="<?= base_url('public/img/Like.svg') ?>" alt="Like"></a>
@@ -24,14 +25,14 @@
       <span class="like-count"><?= count($likes_data) == 1 ? count($likes_data) . ' Like' : count($likes_data) . ' Likes' ?></span>
     <?php endif; ?>
 
-    <?php if(loggedIn() && $post_data->post_by == $user_info->user_id): ?>
+    <?php if($user->isLoggedIn() && $post_data->post_by == $user_info->user_id): ?>
       <span class="options">
         <a href="<?= base_url('edit/') . escape($post_data->post_id) ?>">Edit</a>
       </span>
     <?php endif; ?>
 
     <div class="comments submit">
-      <?php if(loggedIn()): ?>
+      <?php if($user->isLoggedIn()): ?>
         <div class="form">
           <form action="<?php self() ?>" method="POST">
             <div class="form-group">
@@ -54,10 +55,11 @@
       <?php foreach($comments as $comment): ?>
         <div class="comment">
           <h4><a href="<?= base_url('profile/') . escape($comment->user_username) ?>"><?= escape($comment->user_name) ?></a></h4>
+          <h5><a href="<?= base_url('profile/') . escape($comment->user_username) ?>">@<?= escape($comment->user_username) ?></a></h5>
           <h6><?= date('j F Y H:i', strtotime(escape($comment->comment_date))) ?></h6>
           <p><?= escape($comment->comment_text) ?></p>
 
-          <?php if(loggedIn() && $comment->comment_by == $user_info->user_id): ?>
+          <?php if($user->isLoggedIn() && $comment->comment_by == $user_info->user_id): ?>
             <span class="options">
               <a href="<?= base_url('edit-comment/') . escape($comment->comment_id) ?>"><img src="<?= base_url('public/img/Edit.svg') ?>" alt="Edit Comment"></a>
             </span>

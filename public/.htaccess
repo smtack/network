@@ -10,4 +10,4 @@
     RewriteRule ^([a-zA-Z-]+)/?([a-zA-Z0-9-/]*)$ $1.php?page=$1&query=$2 [QSA,L]
 </IfModule>
 
-ErrorDocument 404 /public/errors/404.php
+ErrorDocument 404 /network/public/errors/404.php
