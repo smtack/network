@@ -74,6 +74,6 @@ if(isset($_POST['submit'])) {
   }
 }
 
-$page_title = $profile_info->user_name . "'s Profile";
+$page_title = $profile_info->user_firstname . "'s Profile";
 
 require VIEW_ROOT . '/profile.php';

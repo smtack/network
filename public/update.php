@@ -8,7 +8,7 @@ if(!$user->isLoggedIn()) {
 if(isset($_POST['update'])) {
   if(!check($_POST['token'], 'token')) {
     $error = "Token Invalid";
-  } else if(empty($_POST['user_name']) || empty($_POST['user_username']) || empty($_POST['user_email'])) {
+  } else if(empty($_POST['user_firstname']) || empty($_POST['user_surname']) || empty($_POST['user_username']) || empty($_POST['user_email'])) {
     $error = "Fill in all fields";
   } else if($db->exists('users', array('user_username' => $_POST['user_username'])) && $_POST['user_username'] !== $user_info->user_username) {
     $error = "This username already exists";
@@ -16,7 +16,8 @@ if(isset($_POST['update'])) {
     $error = "This email address is already in use";
   } else {
     $data = [
-      'user_name' => escape($_POST['user_name']),
+      'user_firstname' => escape($_POST['user_firstname']),
+      'user_surname' => escape($_POST['user_surname']),
       'user_username' => escape($_POST['user_username']),
       'user_email' => escape($_POST['user_email'])
     ];

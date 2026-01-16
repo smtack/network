@@ -12,10 +12,10 @@ class User {
     try {
       $this->db->query(
         "INSERT INTO
-          users (user_name, user_username, user_email, user_password)
+          users (user_firstname, user_surname, user_username, user_email, user_password)
         VALUES
-          (?, ?, ?, ?)",
-        [$data['user_name'], $data['user_username'], $data['user_email'], $hashed_password]
+          (?, ?, ?, ?, ?)",
+        [$data['user_firstname'], $data['user_surname'], $data['user_username'], $data['user_email'], $hashed_password]
       );
 
       $user_id = $this->db->pdo->lastInsertId();
@@ -171,7 +171,11 @@ class User {
       FROM
         users
       WHERE
-        user_name
+        user_firstname
+      LIKE
+        ?
+      OR
+        user_surname
       LIKE
         ?
       OR
@@ -183,7 +187,7 @@ class User {
       DESC
       LIMIT
         {$start}, 10
-    ", [$keywords, $keywords]);
+    ", [$keywords, $keywords, $keywords]);
 
     return $query->fetchAll();
   }
@@ -254,9 +258,9 @@ class User {
   }
   
   public function isFriends($user, $friend) {
-    if($this->db->exists('friends', ['friend_user' => $user, 'friend_friend' => $friend])) {
+    if($this->db->exists('friends', ['friend_user' => $user, 'friend_friend' => $friend, 'friend_accepted' => 1])) {
       return true;
-    } else if($this->db->exists('friends', ['friend_user' => $friend, 'friend_friend' => $user])) {
+    } else if($this->db->exists('friends', ['friend_user' => $friend, 'friend_friend' => $user, 'friend_accepted' => 1])) {
       return true;
     } else {
       return false;

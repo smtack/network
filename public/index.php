@@ -8,7 +8,7 @@ if($user->isLoggedIn()) {
 if(isset($_POST['signup'])) {
   if(!check($_POST['token'], 'token')) {
     $error = "Token Invalid";
-  } else if(empty($_POST['user_name']) || empty($_POST['user_username']) || empty($_POST['user_email']) || empty($_POST['user_password']) || empty($_POST['confirm_password'])) {
+  } else if(empty($_POST['user_firstname']) || empty($_POST['user_surname']) || empty($_POST['user_username']) || empty($_POST['user_email']) || empty($_POST['user_password']) || empty($_POST['confirm_password'])) {
     $error = "Fill in all fields";
   } else if($db->exists('users', array('user_username' => $_POST['user_username']))) {
     $error = "This username already exists";
@@ -18,7 +18,8 @@ if(isset($_POST['signup'])) {
     $error = "Passwords must match";
   } else {
     $data = [
-      'user_name' => $_POST['user_name'],
+      'user_firstname' => $_POST['user_firstname'],
+      'user_surname' => $_POST['user_surname'],
       'user_username' => $_POST['user_username'],
       'user_email' => $_POST['user_email'],
       'user_password' => $_POST['user_password']

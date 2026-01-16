@@ -35,6 +35,6 @@ if(isset($_POST['post_comment'])) {
   }
 }
 
-$page_title = "Post by " . $post_data->user_name;
+$page_title = "Post by " . $post_data->user_firstname;
 
 require VIEW_ROOT . '/post.php';

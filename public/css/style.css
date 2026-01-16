@@ -1,13 +1,9 @@
 * {
-  margin: 0;
-  padding: 0;
-  font-family: "Noto Sans", sans-serif;
-  box-sizing: border-box;
+  font-family: "IBM Plex Sans", sans-serif;
 }
 
-.container {
-  width: 80%;
-  margin: 0 auto;
+body {
+  background-color: #fafafa;
 }
 
 a {
@@ -19,144 +15,59 @@ a:hover {
   text-decoration: underline;
 }
 
-.header {
-  height: 75px;
-  border-bottom: 1px solid #d3d3d3;
-}
-
 #logo {
-  margin-top: 30px;
+  margin: 75px;
+  text-align: center;
+  font-size: 48px;
+  font-weight: bold;
 }
 
-#logo a {
-  color: red;
+#logo a:hover {
   text-decoration: none;
-}
-
-#options {
-  position: absolute;
-  top: 30px;
-  right: 10%;
-}
-
-#options li {
-  display: inline-block;
-  margin-left: 20px;
-}
-
-.icon {
-  width: 24px;
-  height: 24px;
-}
-
-#toggle-menu {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  box-sizing: border-box;
-}
-
-#toggle-menu:hover,
-#toggle-search:hover {
-  cursor: pointer;
-}
-
-.search {
-  width: 80%;
-  margin: -15px 0;
-  display: none;
-  position: absolute;
-  top: 140px;
-}
-
-.search form input {
-  width: 100%;
-  height: 50px;
-  padding: 10px;
-  border: 1px solid #d3d3d3;
-  border-radius: 5px;
-}
-
-.search form input:focus {
-  outline: none;
-  border: 1px solid red;
-}
-
-.menu {
-  position: absolute;
-  top: 105px;
-  right: 10%;
-  border: 1px solid #d3d3d3;
-  border-top: none;
-  border-radius: 5px;
-  background-color: white;
-  display: none;
-}
-
-.menu ul {
-  list-style-type: none;
-}
-
-.menu ul a:hover {
-  text-decoration: none;
-}
-
-.menu ul li {
-  padding: 20px;
-}
-
-.menu ul li:hover {
-  background-color: #fafafa;
-}
-
-.content {
-  margin: 25px 0;
 }
 
 .form {
-  width: 40%;
+  width: 50%;
   margin: 25px auto;
-}
-
-.form h3 {
-  padding: 25px 0;
-}
-
-.form .form-group {
-  margin: 10px 0;
-}
-
-.form .form-group input {
-  width: 100%;
-  height: 40px;
-  padding: 10px;
+  background-color: white;
+  padding: 25px;
   border: 1px solid #d3d3d3;
   border-radius: 5px;
 }
 
-.form .form-group input:focus,
-.form .form-group textarea:focus {
-  outline: none;
-  border: 1px solid red;
+.form h2 {
+  margin: 25px 0;
+  padding: 10px 0;
+  text-align: center;
+  font-size: 28px;
 }
 
-.form .form-group input[type="submit"] {
+.form p {
+  margin: 25px 0;
+  text-align: center;
+}
+
+.form input {
+  height: 50px;
+  border: 1px solid #d3d3d3;
+}
+
+.form button {
+  height: 50px;
   background-color: red;
   color: white;
   border: 1px solid red;
 }
 
-.form .form-group input[type="submit"]:hover {
-  background-color: white;
-  color: red;
+.form button:hover {
+  background-color: red;
+  color: white;
+  border: 1px solid red;
   cursor: pointer;
+  opacity: 75%;
 }
 
-.form .form-group label {
-  font-size: 12px;
-}
-
-.form .form-group input[type="checkbox"] {
+.form input[type="checkbox"] {
   width: 15px;
   height: 15px;
   margin-right: 10px;
@@ -165,9 +76,8 @@ a:hover {
   position: relative;
 }
 
-.form .form-group textarea {
+.form textarea {
   width: 100%;
-  height: 350px;
   font-size: 16px;
   padding: 10px;
   border: 1px solid #d3d3d3;
@@ -175,24 +85,59 @@ a:hover {
   resize: none;
 }
 
-.form .form-group img {
+.form img {
   width: 100%;
 }
 
+.form-control:focus,
+.form button:active {
+    border-color: red;
+    box-shadow: 0 0 0 0.25rem rgba(167, 40, 40, 0.25);
+    outline: 0;
+}
+
 .error {
-  border: 1px solid red;
+  background-color: red;
+  color: white;
   border-radius: 5px;
-  color: red;
   display: block;
-  padding: 10px;
-  height: 40px;
-  margin-bottom: 25px;
+  padding: 12.5px;
+  height: 50px;
+}
+
+.navbar {
+  background-color: red;
+  padding: 0 5%;
+}
+
+.navbar-brand {
+  color: white;
+}
+
+.navbar-brand:hover {
+  text-decoration: none;
+  color: white;
+}
+
+.responsive-menu {
+  background-color: red;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+}
+
+.navbar form input {
+  border: 0;
+}
+
+.page-title {
+  text-align: center;
 }
 
 .sidebar {
-  width: 25%;
   margin: 25px 0;
-  float: left;
 }
 
 .info {
@@ -201,6 +146,7 @@ a:hover {
   padding: 25px;
   border: 1px solid #d3d3d3;
   border-radius: 5px;
+  background-color: white;
 }
 
 .info img {
@@ -226,32 +172,27 @@ a:hover {
   font-size: 14px;
 }
 
+.info button {
+  padding: -10px;
+}
+
 .friend-img {
   margin: 10px 10px 10px 0;
 }
 
 #friend {
-  display: inline-block;
-  height: 40px;
-  padding: 10px;
-  margin: 25px 0 10px 0;
-  border: 1px solid #d3d3d3;
-  border-radius: 5px;
   background-color: red;
   color: white;
-  border: 1px solid red;
+  border: 0;
 }
 
 #friend:hover {
-  background-color: white;
-  color: red;
   cursor: pointer;
+  opacity: 75%;
 }
 
 .posts {
-  width: 65%;
   margin: 25px 0;
-  float: right;
 }
 
 .post {
@@ -259,25 +200,73 @@ a:hover {
   padding: 25px;
   border: 1px solid #d3d3d3;
   border-radius: 5px;
+  background-color: white;
 }
 
 .post:hover {
-  background-color: #fbfbfb;
+  background-color: #fcfcfc;
   cursor: pointer;
 }
 
+.post-user-picture {
+  float: left;
+}
+
+.post-user-picture img {
+  text-align: left;
+  height: 35px;
+  width: 35px;
+  display: inline-block;
+}
+
+.single-post {
+  margin-top: 25px;
+}
+
+.single-post:hover,
+.comment:hover {
+  cursor: default;
+  background-color: white;
+}
+
+.single-post .post-user-picture img {
+  height: 75px;
+  width: 75px;
+  margin-top: 0;
+}
+
+.post-user-info {
+  margin-left: 50px;
+}
+
+.single-post .post-user-info {
+  margin-left: 100px;
+}
+
+.post-content {
+  margin: 25px 0 0 50px;
+}
+
+.single-post .post-content {
+  margin: 25px 0 0 100px;
+}
+
+.post h4 {
+  font-size: 20px;
+}
+
 .post h5 a {
+  font-size: 14px;
   color: black;
 }
 
-.post .date {
+.post-user-info .date {
   display: block;
   color: #818181;
   font-size: 12px;
-  margin: 10px 0;
 }
 
-.post img {
+.post-content img {
   max-width: 100%;
   margin: 25px auto;
   display: block;
@@ -304,6 +293,7 @@ a:hover {
 .pagination a {
   padding: 5px 10px;
   border-radius: 5px;
+  margin-right: 5px;
 }
 
 .pagination a:hover {
@@ -318,7 +308,7 @@ a:hover {
 }
 
 .submit {
-  border: none;
+  border-radius: 5px;
 }
 
 .submit .form {
@@ -326,24 +316,15 @@ a:hover {
   margin: 0;
 }
 
-.submit .form-group {
-  margin: 0;
-}
-
-.submit .form-group textarea {
+#post_content,
+#comment_text {
   height: 150px;
-}
-
-.submit .form-group input {
-  margin-top: 25px;
-}
-
-.form-group input[type="file"] {
-  display: none;
+  resize: vertical;
 }
 
 #upload-image {
   width: 24px;
+  float: left;
 }
 
 #upload-image:hover {
@@ -352,41 +333,25 @@ a:hover {
 
 #counter-text {
   padding: 10px 0;
+  float: right;
+}
+
+.single-post {
+  margin: 25px 0 25px 0;
+  padding: 25px;
+  border: 1px solid #d3d3d3;
+  border-radius: 5px;
+  background-color: white;
+}
+
+.single-post img {
+  display: block;
+  margin: 25px 0;
 }
 
 .message {
   text-align: center;
   padding: 25px;
-}
-
-.single-page {
-  width: 75%;
-  margin: 50px auto;
-}
-
-.single-page h4 a {
-  color: black;
-}
-
-.single-page h6 {
-  color: #818181;
-  font-size: 12px;
-  padding-top: 10px;
-}
-
-.single-page p {
-  padding: 25px 0;
-  line-height: 1.5;
-}
-
-.single-page img {
-  max-width: 100%;
-  margin: 25px auto;
-  display: block;
-}
-
-.single-page .form {
-  width: 75%;
 }
 
 .like,
@@ -396,8 +361,6 @@ a:hover {
 }
 
 .comments {
-  border-top: 1px solid #d3d3d3;
-  padding-top: 10px;
   margin: 25px 0;
 }
 
@@ -406,71 +369,20 @@ a:hover {
 }
 
 .comment {
-  position: relative;
+  width: 100%;
   margin: 25px 0;
-  padding: 25px;
-  border: 1px solid #d3d3d3;
-  border-radius: 5px;
-}
-
-.comment h4 a {
-  color: red;
-}
-
-.comment h5 a {
-  color: black;
-}
-
-.comment h6 {
-  font-weight: normal;
-}
-
-.comment p {
-  padding: 10px 0;
 }
 
 .comment .options {
   position: absolute;
-  top: -10%;
+  top: 0;
   right: 20px;
 }
 
 .heading {
-  margin-bottom: 25px;
+  margin: 50px 0;
   padding: 10px 0;
-  border-bottom: 1px solid #d3d3d3;
-}
-
-.user-card {
-  width: 100%;
-  margin: 25px 0;
-  padding: 25px;
-  border: 1px solid #d3d3d3;
-  border-radius: 5px;
-}
-
-.user-card img {
-  width: 50px;
-  height: 50px;
-  border-radius: 100%;
-  margin-bottom: 10px;
-  float: left;
-}
-
-.user-card h2,
-.user-card h5,
-.user-card h6 {
-  padding-bottom: 10px;
-  margin-left: 100px;
-}
-
-.user-card a:hover {
-  text-decoration: none;
-}
-
-.footer {
-  clear: both;
-  border-top: 1px solid #d3d3d3;
+  text-align: center;
 }
 
 .footer p {
@@ -492,17 +404,9 @@ a:hover {
   padding: 50px;
 }
 
-@media(max-width: 1200px) {
-  .container {
-    width: 90%;
-  }
-}
-
-@media(max-width: 900px) {
+@media(max-width: 1000px) {
   .form,
-  .search,
-  .single-page,
-  .single-page .form {
+  .search {
     width: 90%;
   }
 
@@ -510,20 +414,29 @@ a:hover {
   .comments .form {
     width: 100%;
   }
+}
 
-  .header {
-    height: 75px;
-    border-bottom: 1px solid #d3d3d3;
+/* Make collapsed navbar content go full viewport width on mobile */
+@media (max-width: 991.98px) {
+  .navbar-collapse {
+    position: relative;
+    width: 100vw !important;
+    margin-right: calc(-50vw + 50%) !important;
+    margin-left:  calc(-50vw + 50%) !important;
+    padding: 1rem 1.5rem;
   }
 
-  #options,
-  .menu {
-    right: 5%;
+  .navbar-collapse.show {
+    z-index: 1055;
   }
+}
 
-  .sidebar,
-  .posts {
-    width: 100%;
-    float: none;
+@media (min-width: 992px) {
+  .navbar-collapse {
+    display: none !important;
+  }
+  
+  .navbar-collapse.show {
+    display: flex !important;
   }
 }
